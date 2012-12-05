@@ -3,21 +3,10 @@
  (:use compojure.core)
  (:use ring.adapter.jetty)
  (:use api-quiz.fibonacci)
- (:use api-quiz.sha1)
+ (:use api-quiz.page-sha1)
  (:require [compojure.route :as route]
-           [clojure.data.json :as json])
- (:import (java.net URL)
-          (java.lang StringBuilder)
-          (java.io BufferedReader InputStreamReader)))
-
-(defn fetch-url
-  "Return the web page as a string."
-  [address]
-  (let [url (URL. address)]
-    (with-open [stream (. url (openStream))]
-      (let [buf (BufferedReader. (InputStreamReader. stream))]
-        (apply str (line-seq buf))))))
-
+           [clojure.data.json :as json]))
+ 
 (defn json-response [data & [status]]
   {:status (or status 200)
    :headers {"Content-Type" "application/json"}
@@ -25,9 +14,9 @@
 
 (defroutes api-routes
   (GET "/" [] {:status 200})
-  (GET "/fib/:num" [num] (json-response (fib-iter (biginteger num))))
+  (GET ["/fib/:num", :num #"[0-9]+"] [num] (json-response (fib-iter (biginteger num))))
   (GET "/google-body" [] (json-response (sha1 (fetch-url "http://google.com"))))
-  (POST "/store/:val" [val] (str "post test val was " val))
+  (POST "/store" { params :params } (json-response :ok))
   (route/not-found "Page not found"))
 
 (defn -main [& args]

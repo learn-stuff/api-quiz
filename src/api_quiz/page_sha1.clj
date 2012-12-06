@@ -29,5 +29,3 @@
 
 (defn sha1 [data]
   (get-hash-str (sha1-hash data)))
-
-

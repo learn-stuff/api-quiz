@@ -30,7 +30,7 @@ $ curl -s 'http://127.0.0.1:8080/google-body'
 Using some external storage of your choice (can be redis, memcache, sqlite, mysql, etc), provide a means to store and then retrieve a value.
 
 ```
-$ curl -d 'value=something' 'http://127.0.0.1:8080/store'
+$ curl -d 'val=something' 'http://127.0.0.1:8080/store'
 $ curl 'http://127.0.0.1:8080/store'
 {"response":"something"}
 ```

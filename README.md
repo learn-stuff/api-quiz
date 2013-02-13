@@ -8,7 +8,7 @@ $ ./run-api-quiz
 or
 
 ```
-java -jar build/api-quiz-0.1.0-SNAPSHOT-standalone.jar
+$ java -jar build/api-quiz-0.1.0-SNAPSHOT-standalone.jar
 ```
 
 ## Lets test it:
